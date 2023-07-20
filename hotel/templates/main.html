@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .content {
+      margin-top: 30px;
+      text-align: center;
+    }
+    
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    
+    p {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #317fd3;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .btn-login {
+      background-color: #333;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .btn-register {
+      background-color: #6a6a6a;
+      position: absolute;
+      top: 20px;
+      right: 110px;
+    }
+
+    /* Responsive adjustments */
+    
+    @media screen and (max-width: 780px) {
+      .btn-login,
+      .btn-register {
+        position: static;
+        display: block;
+        margin-top: 10px;
+        margin-right: 0;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <h1>Hotel Management System</h1>
+  </header>
+
+  <div class="container">
+    <div class="content">
+      <h1>Welcome to Our Hotel</h1>
+      <p>Experience luxury and comfort like never before.</p>
+      <p>Book your stay now and enjoy a memorable experience.</p>
+      <a class="btn" href="{% url 'hotel:BookingView' %}">Book Now</a>
+      <a class="btn btn-login" href="{% url 'login' %}">Login</a>
+      <a class="btn btn-register" href="{% url 'register' %}">Register</a>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Room</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #317fd3;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 20px;
+      top: 20px;
+      right: 110px;
+    }
+    .btn-danger {
+      background-color: #860202
+    }
+    .btn-d {
+      background-color: #186db3
+    }
+    
+    h1 {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    
+    .login-message {
+    font-size: 18px;
+    color: #ff0000;
+    text-align: center;
+    margin: 20px 0;
+  }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    
+    button[type="submit"],
+    button[type="button"] {
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    
+    button[type="submit"]:hover,
+    button[type="button"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <h1>Hotel Management System</h1>
+  </header>
+  
+  <div class="container">
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    <form action="" method="POST">
+      {{ form.as_p }}
+      {% csrf_token %}
+      {% if request.user.is_authenticated %}
+      <a type="button" href="{% url 'profile' %}" class="btn">My Profile</a>
+      <button type="submit">Book Room</button>
+    </form>
+    <a type="button" href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+  </div>
+  {% else %}
+  <h2 class="login-message">You are not logged in. Please Login first.</h2>
+  <a type="button" href="{% url 'login' %}" class="btn btn-d">Log In</a>
+  {% endif %}
+
+</body>
+
+</html>

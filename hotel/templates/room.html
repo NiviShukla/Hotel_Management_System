@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hotel Booking</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      h1 {
+        color: #333;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+
+      input[type="text"],
+      input[type="date"] {
+        padding: 5px;
+        width: 200px;
+      }
+
+      input[type="submit"] {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+
+      table {
+        margin-top: 20px;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 8px;
+        border: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hotel Booking</h1>
+
+    <h2>Book a Room</h2>
+    <form method="POST" action="{% url 'book_room' %}">
+      {% csrf_token %}
+      <label for="category_id">Name:</label>
+      <input type="text" id="category_id" name="category_id" required />
+      <br />
+      <label for="start_date">Start Date:</label>
+      <input type="date" id="start_date" name="start_date" required />
+      <br />
+      <label for="end_date">End Date:</label>
+      <input type="date" id="end_date" name="end_date" required />
+      <br />
+      <input type="submit" value="Book" />
+    </form>
+
+    <h2>Room Availability</h2>
+    <form method="GET" action="{% url 'get_available_rooms' %}">
+      <label for="start_date">Start Date:</label>
+      <input type="date" id="start_date" name="start_date" required />
+      <br />
+      <label for="end_date">End Date:</label>
+      <input type="date" id="end_date" name="end_date" required />
+      <br />
+      <input type="submit" value="Check Availability" />
+    </form>
+
+    <h2>Room Availability Results</h2>
+    <table id="availability-table" style="display: none">
+      <tr>
+        <th>Room Number</th>
+        <th>Category</th>
+        <th>Availability</th>
+      </tr>
+      <tr>
+        <td>101</td>
+        <td>Standard</td>
+        <td>Available</td>
+      </tr>
+      <tr>
+        <td>102</td>
+        <td>Deluxe</td>
+        <td>Booked</td>
+      </tr>
+      <tr>
+        <td>103</td>
+        <td>Standard</td>
+        <td>Available</td>
+      </tr>
+    </table>
+    <script>
+      function bookRoom(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Retrieve the Category ID value from the input field
+        var categoryId = document.getElementById("category_id").value;
+
+        // Construct the payload object
+        var payload = {
+          category_id: categoryId,
+          start_date: document.getElementById("start_date").value,
+          end_date: document.getElementById("end_date").value,
+        };
+
+        // Convert the payload object to JSON string
+        var payloadJson = JSON.stringify(payload);
+
+        // Send the POST request with the payload to the server
+        fetch("http://127.0.0.1:8000", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCookie("csrftoken"),
+          },
+          body: payloadJson,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // Handle the response from the server
+            console.log(data);
+            if (data.message) {
+              // Display a success message
+              document.getElementById("booking-message").innerText =
+                data.message;
+            }
+          })
+          .catch((error) => {
+            // Handle any errors that occurred during the request
+            console.error("Error:", error);
+          });
+      }
+
+      function checkAvailability(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        // Retrieve the start date and end date values from the input fields
+        var startDate = document.getElementById("start_date").value;
+        var endDate = document.getElementById("end_date").value;
+
+        // Perform the availability check using the start date and end date
+
+        // Show the availability table
+        document.getElementById("availability-table").style.display = "table";
+      }
+
+      // Helper function to retrieve the CSRF token value from cookies
+      function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          var cookies = document.cookie.split(";");
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+    </script>
+  </body>
+</html>
