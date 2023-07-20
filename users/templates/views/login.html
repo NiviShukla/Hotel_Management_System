@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #317fd3;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+          }
+          .btn {
+            background-color: #096acb;
+            top: 20px;
+            right: 110px;
+          }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .form-signin input[type="text"],
+        .form-signin input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        .home-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #081d24;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 20px;
+          }
+          .home-btn:hover {
+            background-color: #1f6ab8;
+          }
+
+        .form-signin button {
+            width: 100%;
+            padding: 10px;
+            background-color: #dc3545;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form-signin button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Login Form</h1>
+    </header>
+    <div class="container">
+        <form class="form-signin" action="" method="post">
+            {% csrf_token %}
+            {{ login_form }}
+            <button type="submit">Sign In</button>
+        </form>
+        <a class="btn" href="{% url 'register' %}">Register</a>
+        <a class="home-btn" href="{% url 'hotel:main' %}">Home</a>
+    </div>
+</body>
+</html>
