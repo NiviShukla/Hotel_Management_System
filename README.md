@@ -1,6 +1,6 @@
 # Hotel_Management_System
 
-The Hotel Management System Django App is a web application that allows users to register, login, and book rooms in a hotel. Users can view their profile, including booking details and personal information like name and email. The app provides different categories of rooms for users to choose from while booking.
+The Hotel Management System Django App is a simple outline of a Hotel Management web application that allows users to register, login, and book rooms in a hotel. Users can view their profile, including booking details and personal information like name and email. The app provides different categories of rooms for users to choose from while booking.
 
 ## Table of Contents
 
